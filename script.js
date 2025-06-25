@@ -45,13 +45,24 @@ yesBtn.addEventListener("click", () => {
   setInterval(createHeart, 300);
 });
 
-noBtn.addEventListener("mouseover", () => {
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const noBtnRect = noBtn.getBoundingClientRect();
-  const maxX = wrapperRect.width - noBtnRect.width;
-  const maxY = wrapperRect.height - noBtnRect.height;
+function moveNoButton() {
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const noBtnRect = noBtn.getBoundingClientRect();
 
-  noBtn.style.position = "absolute";
-  noBtn.style.left = Math.floor(Math.random() * maxX) + "px";
-  noBtn.style.top = Math.floor(Math.random() * maxY) + "px";
-});
+    const maxX = wrapperRect.width - noBtnRect.width;
+    const maxY = wrapperRect.height - noBtnRect.height;
+
+    const randomX = Math.min(Math.floor(Math.random() * maxX), maxX);
+    const randomY = Math.min(Math.floor(Math.random() * maxY), maxY);
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+// على الكمبيوتر
+noBtn.addEventListener("mouseover", moveNoButton);
+
+// على الموبايل
+noBtn.addEventListener("touchstart", moveNoButton);
+noBtn.addEventListener("click", moveNoButton);
